@@ -1,0 +1,14 @@
+<html>
+    <head>
+        {% if title %}
+	<title>{{ title }} - OMDb Movifu</title>
+	{% else %}
+	<title>Welcome to OMDb Movifu</title>
+	{% endif %}
+    </head>
+    <body>
+	<div>OMDb-Movifu: <a href="/index">Home</a></div>
+	<hr>
+	{% block content %}{% endblock%}
+    </body>
+</html>
