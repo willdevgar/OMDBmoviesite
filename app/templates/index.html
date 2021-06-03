@@ -1,5 +1,12 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <h1> Hi, {{user.username}}!</h1>
+    <h1> Welcome to Movifu!</h1>
+    <form action="">
+        <p>
+            {{ form.search }}
+        </p>
+	<p><input type="submit" value="Search"></p>
+        <p>{{ form.submit() }}</p> 
+    </form>
 {% endblock%}    	
