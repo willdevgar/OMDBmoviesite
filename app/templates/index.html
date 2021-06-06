@@ -3,10 +3,7 @@
 {% block content %}
     <h1> Welcome to Movifu!</h1>
     <form action="">
-        <p>
-            {{ form.search }}
-        </p>
-	<p><input type="submit" value="Search"></p>
-        <p>{{ form.submit() }}</p> 
+        <em>Enter a movie title</em> 
+        <p>{{ form.search() }}<input type="submit" value="Search"></p>
     </form>
 {% endblock%}    	
