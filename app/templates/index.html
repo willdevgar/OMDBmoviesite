@@ -3,7 +3,7 @@
 {% block content %}
     <h1> Welcome to Movifu!</h1>
         {{ form.hidden_tag() }} 
-    <form action="" method="POST">
+    <form action="/search" method="POST">
         <em>Enter a movie title</em> 
         <p>{{ form.search() }}<input name="text" type="submit" value="Search"></p>
     </form>
