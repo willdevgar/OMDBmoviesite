@@ -3,7 +3,7 @@
 {% block content %}
     <!--form for displaying movie query results--> 
     <h1>Search Results</h1>
-    {% for result in results %}
+    {% for movie in results %}
         {% include '_search_post.html' %}
     {% endfor %}
 {% endblock %}
