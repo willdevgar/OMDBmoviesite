@@ -1,6 +1,9 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <!--form for users to enter movie query--> 
-    <h1>Search</h1>
+    <!--form for displaying movie query results--> 
+    <h1>Search Results</h1>
+    {% for result in results %}
+        {% include '_search_post.html' %}
+    {% endfor %}
 {% endblock %}

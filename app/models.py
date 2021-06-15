@@ -6,5 +6,10 @@ class result(db.Model):
     title = db.Column(db.String(200), index=True, unique=True)
     year = db.Column(db.String(4), index=True, unique=True)
 
+    def all_results(self):
+        """returns all results"""
+        results = result.query.all()
+        return results 
+
     def __repr__(self):
         return '<imdbID {}>'.format(self.imdbID)

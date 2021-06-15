@@ -1,6 +1,8 @@
 from flask import render_template, request
 from app import app
 from app.forms import SearchForm
+from app import db
+from app.models import result
 import requests
 import json
 import urllib.request as pull 
@@ -24,4 +26,10 @@ def search():
     with pull.urlopen(to_be_returned_from_OMDB) as response:
         source = response.read()
         data = json.loads(source)
-        return data 
+    search_list =  data["Search"]
+    for movie in search_list:
+        
+        db.session.add(result(imdbID=movie["imdbID"], title=movie["Title"], year=movie["Year"]))
+    db.session.commit()
+    results = result.query.all() 
+    return render_template('search.html', title="Results", results=results)

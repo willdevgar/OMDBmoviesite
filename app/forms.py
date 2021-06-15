@@ -7,3 +7,4 @@ class SearchForm(FlaskForm):
     queryString = StringField('movie', validators=[DataRequired()])
     submit = SubmitField('Search')
 
+
