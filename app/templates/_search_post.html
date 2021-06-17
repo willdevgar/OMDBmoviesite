@@ -1,7 +1,9 @@
 <table>
 	<tr>
-		<td>Title: {{ movie.Title }}</td>
-	        <td>Year: {{ movie.Year }} </td>
-		<td>imdbID: {{ movie.imdbID }} </td>
+		<input name="imdbID" value ='{{ movie.imdbID }}' type='button' onclick='{{ form.submit() }}'>
+		Title: {{ movie.Title }}<br>
+		Year: {{ movie.Year }}<br>
+		imdbID: {{ movie.imdbID }}
+	    </input>
 	</tr>
 </table>

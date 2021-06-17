@@ -8,9 +8,8 @@ class SearchForm(FlaskForm):
     submit = SubmitField('Search')
 
 class ResultForm(FlaskForm):
-    title = StringField()
     imdbID = StringField()
-    year = StringField()
+    submit = SubmitField()
 
 class MultiResultForm(FlaskForm):
     results = FieldList(FormField(ResultForm))
