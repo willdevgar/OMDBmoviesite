@@ -1,5 +1,5 @@
 from flask import render_template, request
-from app import app
+from app import app, models
 from app.forms import SearchForm, MultiResultForm, ResultForm
 from app import db
 from app.models import result
@@ -28,11 +28,15 @@ def search():
         source = response.read()
         data = json.loads(source)
     search_list =  data["Search"]
-#    result1 = None
-#    for movie in search_list:
-#        result1 = result(imdbID=movie["imdbID"], title=movie["Title"], year=movie["Year"])
-#        db.session.add(result1)
-#    db.session.commit()
-#    dummy_result = result(imdbID="n00", title="Nada",year="1800")
-#    results = result1.query.all()
+    db.session.query(result).delete()
+    db.session.commit()
+    for movie in search_list:
+        result1 = result(imdbID=movie["imdbID"], title=movie["Title"], year=movie["Year"])
+        db.session.add(result1)
+        db.session.commit()
     return render_template('search.html', title="Results", results=search_list)
+
+@app.route('/details', methods=["POST"])
+def details():
+    text_id = request.form['imdbID']
+
