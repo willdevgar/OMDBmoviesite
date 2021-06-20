@@ -10,3 +10,6 @@ class Config(object):
     SQLALCHEMY_TRACK_MODIFICATIONS = False
 
     RESULTS_PER_PAGE = 10
+
+    LOG_TO_STDOUT = os.environ.get("LOG_TO_STDOUT")
+
