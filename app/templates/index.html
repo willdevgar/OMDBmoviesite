@@ -2,9 +2,10 @@
 
 {% block content %}
     <h1> Welcome to Movifu!</h1>
+    <form action="/search" method="POST">
         {{ form.hidden_tag() }} 
-    <form action="" method="POST">
-        <em>Enter a movie title</em> 
-        <p>{{ form.search() }}<input name="text" type="submit" value="Search"></p>
+	<em>Enter a movie title:</em>
+        <input name="text" type="text">
+    <p>{{ form.submit() }}</p>
     </form>
 {% endblock%}    	

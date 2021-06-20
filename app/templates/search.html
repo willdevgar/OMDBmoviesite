@@ -1,6 +1,20 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <!--form for users to enter movie query--> 
-    <h1>Search</h1>
+    <!--form for displaying movie query results--> 
+    <form action="/details" method="POST" >   
+        <h1>Search Results</h1>
+        {{ form.hidden_tag() }}
+        {% for movie in results %}
+            {% include '_search_post.html' %}
+        {% endfor %}
+    </form>
+    <form action="/search" method="POST">
+	{% if prev_url %}
+	<a href="{{ prev_url }}">Previous Page</a>
+	{% endif %}
+	{% if next_url %}
+	<a href="{{ next_url }}">Next Page</a>
+	{% endif %}
+    </form>	
 {% endblock %}
