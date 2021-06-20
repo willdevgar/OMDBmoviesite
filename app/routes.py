@@ -45,7 +45,7 @@ def details():
     with pull.urlopen(to_be_returned_from_OMDB) as response:
         source = response.read()
         data = json.loads(source)
-    move_title = data["Title"]
+    movie_title = data["Title"]
     year = data["Year"]
     released = data["Released"]
     runtime = data["Runtime"]
