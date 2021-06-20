@@ -1,6 +1,6 @@
 from flask import render_template, request, flash, redirect, url_for
 from app import app, models
-from app.forms import SearchForm, MultiResultForm, ResultForm
+from app.forms import SearchForm, ResultForm
 from app import db
 from app.models import result
 import requests
@@ -42,6 +42,16 @@ def search(page):
 def details():
     text_id = request.form['imdbID']
     to_be_returned_from_OMDB ="https://www.omdbapi.com/?i="+text_id+"&apikey=e3c04726"
+    with pull.urlopen(to_be_returned_from_OMDB) as response:
+        source = response.read()
+        data = json.loads(source)
+    move_title = data["Title"]
+    year = data["Year"]
+    released = data["Released"]
+    runtime = data["Runtime"]
+    genre = data["Genre"]
+    director = data["Director"]
+    return render_template('movie_detail.html', movie_title=movie_title, year=year, released=released, runtime=runtime, genre=genre,director=director)
 
 def _return_json(text):
     """function for addiing json object results to db depending on result amount and returning a SQLAlchemy object"""

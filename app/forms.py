@@ -11,5 +11,5 @@ class ResultForm(FlaskForm):
     imdbID = StringField()
     submit = SubmitField()
 
-class MultiResultForm(FlaskForm):
+class DetailForm(FlaskForm): 
     results = FieldList(FormField(ResultForm))
