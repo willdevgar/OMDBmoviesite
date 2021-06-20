@@ -51,7 +51,8 @@ def details():
     runtime = data["Runtime"]
     genre = data["Genre"]
     director = data["Director"]
-    return render_template('movie_detail.html', movie_title=movie_title, year=year, released=released, runtime=runtime, genre=genre,director=director)
+    poster = data["Poster"]
+    return render_template('movie_detail.html', movie_title=movie_title, year=year, released=released, runtime=runtime, genre=genre,director=director,poster=poster)
 
 def _return_json(text):
     """function for addiing json object results to db depending on result amount and returning a SQLAlchemy object"""
