@@ -20,6 +20,8 @@ def index():
 @app.route("/search/<int:page>", methods=["GET"])
 def search(page):
     form = ResultForm()
+    if page == 'index':
+        return redirect("/index")
     if request.method =='POST':
         # receives the incoming POST request from the form and turns it into text
         text = request.form['text'] 
