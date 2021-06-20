@@ -11,24 +11,28 @@ import urllib.request as pull
 @app.route('/index') 
 def index():
     form = SearchForm()
-    return render_template('index.html', title='Home', form=form)
-
-@app.route('/search', methods=["POST"])
-def search():
-    form = ResultForm()
-     
     # clearing the database of existing data to avoid duplicates
     db.session.query(result).delete()
     db.session.commit()
-    
-    # receives the incoming POST request from the form and turns it into text
-    text =request.form['text']
-    # processes the text into a string format to add to the API query string
-    results = _return_json(text)
-    if results is False:
-        flash("No results found, please enter new search terms")
-        return redirect("/index")
-    return render_template('search.html', title="Results", results=results, form=form)
+    return render_template('index.html', title='Home', form=form)
+
+@app.route('/search', methods=["GET","POST"], defaults={"page":1})
+@app.route("/search/<int:page>", methods=["GET"])
+def search(page):
+    form = ResultForm()
+    if request.method =='POST':
+        # receives the incoming POST request from the form and turns it into text
+        text = request.form['text'] 
+        # processes the text into a string format to add to the API query string
+        results = _return_json(text) 
+        if results is False:
+            flash("No results found, please enter new search terms")
+            return redirect("/index")
+        search_results = results.paginate(page, app.config["RESULTS_PER_PAGE"], False)
+        return render_template('search.html', title="Results", results=search_results.items, form=form)
+    else:
+        results = db.session.query(result).paginate(page, app.config["RESULTS_PER_PAGE"], False)
+        return render_template('search.html', title="Results", results=results.items, form=form)
 
 @app.route('/details', methods=["POST"])
 def details():
@@ -55,12 +59,12 @@ def _return_json(text):
             for i in range(1,6):
                 url_string = _string_to_url(text,i)
                 _add_to_db(url_string)
-            return db.session.query(result).all()
+            return db.session.query(result)
         else:
             for i in range(1,total_pages + 1):
                 url_string = _string_to_url(text,i)
                 _add_to_db(url_string)
-            return db.session.query(result).all()
+            return db.session.query(result)
 
 def _string_to_url(text, num):
     """function for converting text to a url for omdb api
