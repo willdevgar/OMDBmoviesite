@@ -29,10 +29,14 @@ def search(page):
             flash("No results found, please enter new search terms")
             return redirect("/index")
         search_results = results.paginate(page, app.config["RESULTS_PER_PAGE"], False)
-        return render_template('search.html', title="Results", results=search_results.items, form=form)
+        next_url = url_for('search', page=search_results.next_num) if search_results.has_next else None
+        prev_url = url_for('search', page=search_results.prev_num) if search_results.has_prev else None
+        return render_template('search.html', title="Results", results=search_results.items, form=form, next_url=next_url, prev_url=prev_url)
     else:
         results = db.session.query(result).paginate(page, app.config["RESULTS_PER_PAGE"], False)
-        return render_template('search.html', title="Results", results=results.items, form=form)
+        next_url = url_for('search', page=results.next_num) if results.has_next else None
+        prev_url = url_for('search', page=results.prev_num) if results.has_prev else None
+        return render_template('search.html', title="Results", results=results.items, form=form, next_url=next_url, prev_url=prev_url)
 
 @app.route('/details', methods=["POST"])
 def details():
